@@ -60,6 +60,7 @@
                     </view>
                     <connections>
                         <outlet property="searchText" destination="Fb6-5X-w4v" id="doq-if-g5b"/>
+                        <outlet property="tableView" destination="Jv6-yz-w4j" id="F7a-Wx-WFP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
