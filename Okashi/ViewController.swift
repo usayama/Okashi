@@ -15,6 +15,8 @@ class ViewController: UIViewController, UISearchBarDelegate {
         
         // サーチバーのデリゲート通知先を設定
         searchText.delegate = self
+        // 入力のヒントになるプレースホルダーを設定
+        searchText.placeholder = "お菓子の名前を入力してください"
     }
 
     @IBOutlet weak var searchText: UISearchBar!
