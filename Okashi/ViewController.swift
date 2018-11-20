@@ -8,11 +8,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UISearchBarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // サーチバーのデリゲート通知先を設定
+        searchText.delegate = self
     }
 
     @IBOutlet weak var searchText: UISearchBar!
