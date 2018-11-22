@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import SafariServices
 
-class ViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource {
+
+class ViewController: UIViewController, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, SFSafariViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +21,8 @@ class ViewController: UIViewController, UISearchBarDelegate, UITableViewDataSour
         searchText.placeholder = "お菓子の名前を入力してください"
         // テーブルビューのデータソースを設定
         tableView.dataSource = self
+        // テーブルビューのデリゲートを設定
+        tableView.delegate = self
     }
 
     @IBOutlet weak var searchText: UISearchBar!
@@ -133,5 +137,23 @@ class ViewController: UIViewController, UISearchBarDelegate, UITableViewDataSour
         }
         // 設定済みのCellオブジェクトを画面に反映
         return cell
+    }
+    
+    // Cellが選択されたときに呼び出されるデリゲートメソッド
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // ハイライト解除
+        tableView.deselectRow(at: indexPath, animated: true)
+        // SFSafariViewを開く
+        let safariViewController = SFSafariViewController(url: okashiList[indexPath.row].link)
+        // デリゲートの通知先を自分自身
+        safariViewController.delegate = self
+        // サファリビューが開かれる
+        present(safariViewController, animated: true, completion: nil)
+    }
+    
+    // サファリビューが閉じられたときに呼ばれるデリゲートメソッド
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        // サファリビューを閉じる
+        dismiss(animated: true, completion: nil)
     }
 }
