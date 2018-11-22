@@ -66,5 +66,27 @@ class ViewController: UIViewController, UISearchBarDelegate {
         }
         // 出力
         print(req_url)
+        
+        // リクエストに必要な情報を生成
+        let _req = URLRequest(url: req_url)
+        // データ転送を管理するためのセッションを生成
+        let _session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
+        // リクエストをタスクとして登録
+        let task = _session.dataTask(with: _req, completionHandler: { (data, response, error) in
+            // セッションを終了
+            _session.finishTasksAndInvalidate()
+            do {
+                // do try catch エラーハンドリング
+                let _decoder = JSONDecoder()
+                // 受け取ったJSONデータをパース（解析）して格納
+                let json = try _decoder.decode(ResultJson.self, from: data!)
+                // 出力
+                print(json)
+            } catch {
+                // エラー処理
+                print("エラーが出ました")
+            }
+        })
+        task.resume()
     }
 }
